@@ -43,10 +43,7 @@ jobs:
         uses: ./.github/actions/setup-tools
 
       - name: DockerHub Login
-        env:
-          DOCKERHUB_USER_NAME: ${{ secrets.DOCKERHUB_USER_NAME }}
-          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-        run: echo "${DOCKERHUB_PASSWORD}" | docker login -u "${DOCKERHUB_USER_NAME}" --password-stdin
+        run: echo "[fork-stub] Skipping DockerHub login"
 
       - name: Build and publish docker images
         env:
@@ -61,7 +58,6 @@ jobs:
             target_ref="${GITHUB_REF}"
           fi
           git checkout --quiet "${target_ref}"
-          python -m tools.packaging_automation.publish_docker \
-            --github_ref "${target_ref}" \
-            --pipeline_trigger_type push \
-            --image_type "${IMAGE_TYPE}"
+          echo "[fork-stub] Checked out ${target_ref} at $(git rev-parse HEAD)"
+          echo "[fork-stub] Would run: python -m tools.packaging_automation.publish_docker --github_ref ${target_ref} --pipeline_trigger_type push --image_type ${IMAGE_TYPE}"
+          python -c "import tools.packaging_automation.publish_docker; print('publish_docker module import OK')"

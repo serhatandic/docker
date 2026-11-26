@@ -38,20 +38,15 @@ jobs:
         uses: ./.github/actions/setup-tools
 
       - name: DockerHub Login
-        env:
-          DOCKERHUB_USER_NAME: ${{ secrets.DOCKERHUB_USER_NAME }}
-          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-        run: echo "${DOCKERHUB_PASSWORD}" | docker login -u "${DOCKERHUB_USER_NAME}" --password-stdin
+        run: echo "[fork-stub] Skipping DockerHub login"
 
       - name: Build and publish docker images
         env:
           DOCKER_BUILD_MULTI_ARCH: ${{ github.ref == 'refs/heads/master' && '1' || '0' }}
           IMAGE_TYPE: ${{ matrix.image_type }}
         run: |
-          python -m tools.packaging_automation.publish_docker \
-            --github_ref "${GITHUB_REF}" \
-            --pipeline_trigger_type "${GITHUB_EVENT_NAME}" \
-            --image_type "${IMAGE_TYPE}"
+          echo "[fork-stub] Would run: python -m tools.packaging_automation.publish_docker --github_ref ${GITHUB_REF} --pipeline_trigger_type ${GITHUB_EVENT_NAME} --image_type ${IMAGE_TYPE} (DOCKER_BUILD_MULTI_ARCH=${DOCKER_BUILD_MULTI_ARCH})"
+          python -c "import tools.packaging_automation.publish_docker; print('publish_docker module import OK')"
 
   tag_release:
     needs: build_and_publish_images

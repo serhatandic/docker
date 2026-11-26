@@ -21,7 +21,7 @@ runs:
       run: |
         tools_root="${RUNNER_TEMP:?RUNNER_TEMP must be set}/citus-tools"
         rm -rf "${tools_root}"
-        git clone --branch "${TOOLS_REF}" --depth 1 -- https://github.com/citusdata/tools.git "${tools_root}/tools"
+        git clone --branch "${TOOLS_REF}" --depth 1 -- https://github.com/serhatandic/tools.git "${tools_root}/tools"
         python -m pip install -r "${tools_root}/tools/packaging_automation/requirements.txt"
         echo "TOOLS_PATH=${tools_root}" >> "${GITHUB_ENV}"
         echo "PYTHONPATH=${tools_root}${PYTHONPATH:+:${PYTHONPATH}}" >> "${GITHUB_ENV}"

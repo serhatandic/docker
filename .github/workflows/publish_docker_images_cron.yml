@@ -1,11 +1,7 @@
 name: Schedule Build Docker Images For Main Images And Nightly
 
 on:
-  schedule:
-    - cron: 30 0 * * *
-  push:
-    branches:
-      - "**"
+  workflow_dispatch:
 
 jobs:
   build_and_publish_images:
